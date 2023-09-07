@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+{% block title %}Катастрофа!{% endblock %}
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <p class="text-center">Кажется, вы указали идентификатор, для которого в базе данных нет ссылки.</p>
+      <img class="img-fluid mx-auto d-block" src="{{ url_for('static', filename='img/ok.gif') }}" alt="" style="max-width: 50%; height: auto;" />
+  </div>
+  </section>
+</main>
+{% endblock %}
