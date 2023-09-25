@@ -8,7 +8,6 @@ from .models import URLMap
 ID_NOT_FOUND = 'Указанный id не найден'
 REQUEST_MISSING_ERROR = 'Отсутствует тело запроса'
 URL_FIELD_ERROR = '"url" является обязательным полем!'
-NAME_ALREADY_USE_ERROR_ANOTHER = 'Имя "{name}" уже занято.'
 
 
 @app.route("/api/id/", methods=["POST"])
