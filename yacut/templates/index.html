@@ -19,21 +19,17 @@
                 <div>
                   {{ form.original_link(class="form-control form-control-lg py-2 mb-3", id="form-original_link", placeholder=form.original_link.label.text) }}
                   <p>
-                    {% if form.original_link.errors %}
                       {% for error in form.original_link.errors %}
                         <span style="color:red">{{ error }}</span>
                       {% endfor %}
-                    {% endif %}
                   </p>
                 </div>
                 <div>
                   {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", id="form-custom_id", placeholder=form.custom_id.label.text) }}
                   <p>
-                    {% if form.custom_id.errors %}
                       {% for error in form.custom_id.errors %}
                         <span style="color: red">{{ error }}</span>
                       {% endfor %}
-                    {% endif %}
                   </p>
                 </div>
 
@@ -53,16 +49,14 @@
           <div class="col-sm">
             <p class="text-center">
               {% with messages = get_flashed_messages() %}
-                {% if messages %}
                   {% for message in messages %}
                     {{ message }}
                   {% endfor %}
-                {% endif %}
               {% endwith %}
-              {% if short %}
+              {% if short_url %}
                 <h5 class="text-center">Ваша новая ссылка готова:</h5>
                 <p class="text-center">
-                  <a href="{{ url_for('redirect_view', short=short, _external=True) }}">{{ url_for('redirect_view', short=short, _external=True) }}</a>
+                  <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
                 </p>
               {% endif %}
             </p>
