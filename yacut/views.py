@@ -27,7 +27,8 @@ def index_view():
         "index.html",
         form=form,
         short_url=url_map.get_short_url()
-        ), HTTPStatus.OK
+    ), HTTPStatus.OK
+
 
 @app.route("/<string:short>")
 def redirect_view(short):
@@ -35,4 +36,3 @@ def redirect_view(short):
     if url_map:
         return redirect(url_map.original)
     abort(404)
-

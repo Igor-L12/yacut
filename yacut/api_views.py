@@ -38,4 +38,3 @@ def get_short_url_info(short_id):
     if not url_map:
         raise InvalidAPIUsage(ID_NOT_FOUND, HTTPStatus.NOT_FOUND)
     return jsonify({"url": url_map.original}), HTTPStatus.OK
-

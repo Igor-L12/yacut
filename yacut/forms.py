@@ -12,6 +12,7 @@ MAX_CUSTOM_ID_LENGTH = 16
 
 CUSTOM_ID_REGEX = r'^[a-zA-Z0-9_-]+$'
 
+
 class URLForm(FlaskForm):
     original_link = URLField(
         ORIGINAL_LINK_LABEL,
