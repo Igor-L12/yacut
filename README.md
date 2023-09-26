@@ -27,10 +27,12 @@ FLASK_ENV=development
 SECRET_KEY= MY_SECRET_KEY
 DATABASE_URI=sqlite:///db.sqlite3
 ```
-### Создать базу данных:
+### Выполнить миграции:
 
 ```
 flask db init
+flask db migrate
+flask db upgrade
 ```
 ### Запустить сервис на локальном сервере:
 ```
