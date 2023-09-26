@@ -4,12 +4,11 @@ from datetime import datetime
 
 from flask import url_for
 
-from settings import (CUSTOM_ID_REGEX, MAX_ORIGINAL_LENGTH, MAX_SHORT_LENGTH,
-                      REDIRECT_VIEW_NAME, VALID_SYMBOLS_SHORT_LINK)
+from settings import (MAX_ORIGINAL_LENGTH, MAX_SHORT_LENGTH,
+                      REDIRECT_VIEW_NAME, SHORT_REGEX, VALID_SYMBOLS_SHORT)
 
 from . import db
 
-NAME_ALREADY_USE_ERROR_FLASH = 'Имя {name} уже занято!'
 NAME_ALREADY_USE_ERROR = 'Имя "{name}" уже занято.'
 INVALID_NAME_ERROR = 'Указано недопустимое имя для короткой ссылки'
 INVALID_ORIGINAL_URL = 'Указан недопустимый url!'
@@ -33,7 +32,7 @@ class URLMap(db.Model):
 
     @staticmethod
     def get_unique_short_id(length=6):
-        short = ''.join(random.choices(VALID_SYMBOLS_SHORT_LINK, k=length))
+        short = ''.join(random.choices(VALID_SYMBOLS_SHORT, k=length))
         if not URLMap.get(short=short):
             return short
         raise ValueError(FAILED_GENERATE_LINK)
@@ -43,22 +42,20 @@ class URLMap(db.Model):
         return URLMap.query.filter_by(short=short).first()
 
     @staticmethod
-    def create(original_link, short=None, validation=None):
-        if validation:
+    def create(original_link, short=None, validate=False):
+        if validate:
             if len(original_link) > MAX_ORIGINAL_LENGTH:
                 raise ValueError(INVALID_ORIGINAL_URL)
             if short:
                 if len(short) > MAX_SHORT_LENGTH:
                     raise ValueError(INVALID_NAME_ERROR)
-                if not re.match(CUSTOM_ID_REGEX, short):
+                if not re.match(SHORT_REGEX, short):
                     raise ValueError(INVALID_NAME_ERROR)
-        existing_url = URLMap.get(short=short)
         if not short:
             short = URLMap.get_unique_short_id()
-        elif existing_url:
+        elif URLMap.get(short=short):
             raise ValueError(
-                NAME_ALREADY_USE_ERROR.format(name=short) if validation else
-                NAME_ALREADY_USE_ERROR_FLASH.format(name=short))
+                NAME_ALREADY_USE_ERROR.format(name=short))
         url_map = URLMap(original=original_link, short=short)
         db.session.add(url_map)
         db.session.commit()

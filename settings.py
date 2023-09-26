@@ -2,11 +2,11 @@ import os
 import re
 import string
 
-VALID_SYMBOLS_SHORT_LINK = string.ascii_letters + string.digits
+VALID_SYMBOLS_SHORT = string.ascii_letters + string.digits
 MAX_ORIGINAL_LENGTH = 2048
 MAX_SHORT_LENGTH = 16
 REDIRECT_VIEW_NAME = 'redirect_view'
-CUSTOM_ID_REGEX = rf'^[{re.escape(VALID_SYMBOLS_SHORT_LINK)}]+$'
+SHORT_REGEX = rf'^[{re.escape(VALID_SYMBOLS_SHORT)}]+$'
 
 
 class Config(object):

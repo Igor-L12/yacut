@@ -30,8 +30,6 @@ DATABASE_URI=sqlite:///db.sqlite3
 ### Выполнить миграции:
 
 ```
-flask db init
-flask db migrate
 flask db upgrade
 ```
 ### Запустить сервис на локальном сервере:

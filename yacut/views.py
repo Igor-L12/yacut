@@ -15,9 +15,9 @@ def index_view():
     original_link = form.original_link.data
     short = form.custom_id.data
     try:
-        url_map = URLMap.create(original_link, short)
-    except ValueError as error:
-        flash(str(error))
+        url_map = URLMap.create(original_link, short=short)
+    except ValueError:
+        flash(f'Имя {short} уже занято!')
         return render_template("index.html", form=form)
     return render_template(
         "index.html",
